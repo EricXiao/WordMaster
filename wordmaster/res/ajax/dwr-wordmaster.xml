@@ -1,0 +1,15 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN"
+    "http://directwebremoting.org/schema/dwr30.dtd">
+
+<dwr>
+	<allow>
+		<create creator="static" javascript="WordMasterRemote">
+			<param name="class" value="com.wordmaster.view.WordMasterRemote" />
+			<include method="hello"/>
+		</create>
+	</allow>
+	<!-- 
+	<convert converter="..." match="..." />
+	 -->
+</dwr>

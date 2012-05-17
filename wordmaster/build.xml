@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="CS2Admin" basedir=".">
+	<property file="build.properties" />
+	<property name="root.dir" value="../" />
+	<property name="src.dir" value="src" />
+	<property name="res.dir" value="res" />
+	<property name="lib.dir" value="${root.dir}/lib" />
+	<property name="build.dir" value="${root.dir}/ant-build" />
+
+	<target name="All" depends="clean, init, compile, copy-lib, copy-config, copy-jsp, package-war, upload">
+
+	</target>
+
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${build.dir}/config" />
+		<mkdir dir="${build.dir}/lib" />
+		<mkdir dir="${build.dir}/jsp" />
+		<mkdir dir="${build.dir}/war" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<path id="java-compile-classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile">
+		<javac srcdir="${src.dir}" encoding="UTF8" destdir="${build.dir}/classes" includes="**/*.java">
+			<classpath refid="java-compile-classpath" />
+		</javac>
+	</target>
+
+	<target name="copy-lib">
+		<copy toDir="${build.dir}/lib" overwrite="true">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copy-config">
+		<copy toDir="${build.dir}/config" overwrite="true">
+			<fileset dir="${res.dir}">
+				<include name="dd/*.*" />
+			</fileset>
+			<fileset dir="${res.dir}">
+				<include name="ajax/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copy-jsp">
+		<copy toDir="${build.dir}/jsp" overwrite="true">
+			<fileset dir="${res.dir}/web">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="package-war">
+		<war warfile="${build.dir}/war/${APP_NAME}.war" webxml="${build.dir}/config/dd/web.xml">
+			<classes dir="${build.dir}/classes">
+				<include name="**/*.*" />
+			</classes>
+			<fileset dir="${build.dir}/jsp">
+				<include name="**/*.*" />
+			</fileset>
+			<webinf dir="${build.dir}/config/ajax">
+				<include name="**/*" />
+			</webinf>
+			<lib dir="${build.dir}/lib">
+				<include name="**/*.jar" />
+				<exclude name="jsp-api.jar" />
+				<exclude name="servlet-api.jar" />
+			</lib>
+		</war>
+	</target>
+
+	<target name="upload">
+		<copy toDir="${TOMCAT_HOME}" overwrite="true">
+			<fileset dir="${build.dir}/war">
+				<include name="*.war" />
+			</fileset>
+		</copy>
+	</target>
+
+
+
+
+
+</project>
