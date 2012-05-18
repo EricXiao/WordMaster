@@ -7,9 +7,10 @@
 		<create creator="static" javascript="WordMasterRemote">
 			<param name="class" value="com.wordmaster.view.WordMasterRemote" />
 			<include method="hello"/>
+			<include method="getWordTypes"/>
+			<include method="addNewType"/>
 		</create>
+		<convert converter="bean" match="com.wordmaster.po.WordType" />
 	</allow>
-	<!-- 
-	<convert converter="..." match="..." />
-	 -->
+	
 </dwr>

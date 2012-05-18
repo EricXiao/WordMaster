@@ -5,5 +5,16 @@
 	<classpathentry kind="var" path="EXT_LIB/jsp-api.jar"/>
 	<classpathentry kind="var" path="EXT_LIB/servlet-api.jar"/>
 	<classpathentry kind="var" path="EXT_LIB/dwr.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/antlr-2.7.6.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/c3p0-0.9.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/commons-collections-3.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/dom4j-1.6.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/hibernate3.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/jta-1.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/slf4j-nop-1.6.1.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
+	<classpathentry kind="var" path="EXT_LIB/mysql-connector-java-5.1.19-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<project name="CS2Admin" basedir=".">
+<project name="WordMaster" basedir=".">
 	<property file="build.properties" />
 	<property name="root.dir" value="../" />
 	<property name="src.dir" value="src" />
@@ -53,6 +53,12 @@
 			<fileset dir="${res.dir}">
 				<include name="ajax/*.*" />
 			</fileset>
+
+		</copy>
+		<copy toDir="${build.dir}/config/hibernate" overwrite="true">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml" />
+			</fileset>
 		</copy>
 	</target>
 
@@ -73,8 +79,11 @@
 				<include name="**/*.*" />
 			</fileset>
 			<webinf dir="${build.dir}/config/ajax">
-				<include name="**/*" />
+				<include name="**/*.*" />
 			</webinf>
+			<classes dir="${build.dir}/config/hibernate">
+				<include name="**/*.*" />
+			</classes>
 			<lib dir="${build.dir}/lib">
 				<include name="**/*.jar" />
 				<exclude name="jsp-api.jar" />
