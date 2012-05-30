@@ -9,8 +9,10 @@
 			<include method="hello"/>
 			<include method="getWordTypes"/>
 			<include method="addNewType"/>
+			<include method="saveWord"/>
 		</create>
 		<convert converter="bean" match="com.wordmaster.po.WordType" />
+		<convert converter="bean" match="com.wordmaster.po.WordItem" />
 	</allow>
 	
 </dwr>

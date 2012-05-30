@@ -1,3 +1,6 @@
 use wordmaster;
-create table wm_word_type (id bigint primary key not null default 0, code varchar(10) unique key, description varchar(50));
+create table wm_word_type (
+	id bigint AUTO_INCREMENT primary key not null, 
+	code varchar(10) unique key, 
+	description varchar(50));
 

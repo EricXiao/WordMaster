@@ -35,5 +35,6 @@
 		<property name="hibernate.format_sql">true</property>
 		<!-- 罗列所有的映射文件 -->
 		<mapping resource="com/wordmaster/po/WordType.hbm.xml"/>
+		<mapping resource="com/wordmaster/po/WordItem.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

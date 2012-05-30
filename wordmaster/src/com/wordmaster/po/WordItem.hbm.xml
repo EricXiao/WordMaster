@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="gb2312"?>
-<!-- 指定Hiberante3映射文件的DTD信息 -->
 <!DOCTYPE hibernate-mapping PUBLIC 
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- hibernate-mapping是映射文件的根元素 -->
 <hibernate-mapping package="com.wordmaster.po">
-	<!-- 每个class元素对应一个持久化对象 -->
-	<class name="WordType" table="wm_word_type">
+	<class name="WordItem" table="wm_word_item">
 		<id name="id">
 			<generator class="identity"/>
 		</id>
-		<!-- property元素定义常规属性 -->
-		<property name="code"/>
-		<property name="description"/>
+		<property name="word"/>
+		<property name="englishTranslation" column="english_translation"/>
+		<property name="chineseTranslation" column="chinese_translation"/>
+		<property name="note"/>
 	</class>
 </hibernate-mapping>
 

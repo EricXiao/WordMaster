@@ -27,7 +27,7 @@ English Translation: <input type="text" id="field_enTranslation" name="field_enT
 Type: <select id="field_type" name="field_type">
 </select> &#160; Code:<input type="text" id="field_newTypeCode" name="field_newTypeCode" style="display:none" />
 &#160;Description:<input type="text" id="field_newTypeDescription" name="field_newTypeDescription" style="display:none" />
-<br/>
+&#160; <input type="button" id="button_addNewType" value="Add" style="display:none" /><br/>
 Notes: <input type="text" id="field_notes" name="field_notes"/><br/>
 Example: <input type="text" id="field_example" name="field_example" size="60"/><br/>
 
@@ -37,21 +37,32 @@ Example: <input type="text" id="field_example" name="field_example" size="60"/><
 </div>
 <script>
 $(document).ready(function(){
-	WordMasterRemote.getWordTypes(function(data){
-		$("#field_type").html("");
-		for(var i=0; i<data.length; i++){
-			$("<option value=\""+data[i].code+"\">"+data[i].description + "</option>").appendTo($("#field_type"));
-		}
-	});
-	
-	$("#field_type").change(function(){
-		if($(this).val()=="OT"){
+	var checkOtherTypeShowOrNot = function(selectList){
+		if($(selectList).val()=="OT"){
 			$("#field_newTypeCode").show();
 			$("#field_newTypeDescription").show();
+			$("#button_addNewType").show();
 		}else{
 			$("#field_newTypeCode").hide().val("");
 			$("#field_newTypeDescription").hide().val("");
+			$("#button_addNewType").hide();
 		}
+	}
+	
+	var refreshWordTypes = function(){
+		WordMasterRemote.getWordTypes(function(data){
+			$("#field_type").html("");
+			for(var i=0; i<data.length; i++){
+				$("<option value=\""+data[i].code+"\">"+data[i].description + "</option>").appendTo($("#field_type"));
+			}
+			checkOtherTypeShowOrNot($("#field_type"));
+		});
+	}
+	
+	refreshWordTypes();
+	
+	$("#field_type").change(function(){
+		checkOtherTypeShowOrNot(this);
 	});
 	
 	$("#link_newWord").click(function(){
@@ -64,7 +75,7 @@ $(document).ready(function(){
 		$("#div_newWord").hide();
 	});
 	
-	$("#button_save").click(function(){
+	$("#button_addNewType").click(function(){
 		var newTypeCode = $.trim($("#field_newTypeCode").val());
 		var newTypeDescription = $.trim($("#field_newTypeDescription").val());
 		if(newTypeCode!="" && newTypeDescription!=""){
@@ -73,10 +84,33 @@ $(document).ready(function(){
 					alert("Failed to create new type.");
 				}else{
 					alert("success");
+					refreshWordTypes();
 				}
 			});
-		}else if(newTypeCode!="" || newTypeDescription!=""){
+		}
+	});
+	
+	$("#button_save").click(function(){
+		var newTypeCode = $.trim($("#field_newTypeCode").val());
+		var newTypeDescription = $.trim($("#field_newTypeDescription").val());
+		if(newTypeCode!="" || newTypeDescription!=""){
 			alert("please input new type.");
+		}else{
+			var wordItem = {
+				"word": $.trim($("#field_newWord").val()),
+				"englishTranslation": $.trim($("#field_enTranslation").val()),
+				"chineseTranslation": $.trim($("#field_cnTranslation").val()),
+				"note": $.trim($("#field_notes").val()),
+				"word": $.trim($("#field_newWord").val())
+				
+			};
+			WordMasterRemote.saveWord(wordItem, function(data){
+				if(data != "success"){
+					alert("Failed to save word.");
+				}else{
+					alert("success");
+				}
+			});
 		}
 	});
 	

@@ -8,7 +8,24 @@
 	<property name="lib.dir" value="${root.dir}/lib" />
 	<property name="build.dir" value="${root.dir}/ant-build" />
 
-	<target name="All" depends="clean, init, compile, copy-lib, copy-config, copy-jsp, package-war, upload">
+
+	<path id="catalina-ant-classpath">
+	  <fileset dir="${TOMCAT_DIR}/lib">
+	    <include name="catalina-ant.jar"/>
+	    <include name="tomcat-coyote.jar"/>
+	    <include name="tomcat-util.jar"/>
+	  </fileset>
+	  <fileset dir="${TOMCAT_DIR}/bin">
+	    <include name="tomcat-juli.jar"/>
+	  </fileset>
+	</path>
+
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="catalina-ant-classpath"/>
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="catalina-ant-classpath"/>
+
+
+	
+	<target name="All" depends="clean, init, compile, copy-lib, copy-config, copy-jsp, package-war, undeploy, deploy">
 
 	</target>
 
@@ -91,6 +108,27 @@
 			</lib>
 		</war>
 	</target>
+	
+	<target name="undeploy" description="undeploy from tomcat">
+			<undeploy 
+				failonerror="no"
+				url="${TOMCAT_MANAGER_URL}"
+				username="${TOMCAT_MANAGER_USERNAME}"
+				password="${TOMCAT_MANAGER_PASSWORD}"
+				path="/${APP_NAME}"
+			/>
+	</target>
+	
+	<target name="deploy" description="deploy to tomcat">
+			<echo>deploying from client</echo>
+			<deploy 
+				url="${TOMCAT_MANAGER_URL}"
+				username="${TOMCAT_MANAGER_USERNAME}"
+				password="${TOMCAT_MANAGER_PASSWORD}"
+				path="/${APP_NAME}"
+				war="file:${build.dir}/war/${APP_NAME}.war"
+			/>
+		</target>
 
 	<target name="upload">
 		<copy toDir="${TOMCAT_HOME}" overwrite="true">
