@@ -2,6 +2,7 @@ package com.wordmaster.view;
 
 import java.util.List;
 
+import com.wordmaster.po.WordExample;
 import com.wordmaster.po.WordItem;
 import com.wordmaster.po.WordType;
 import com.wordmaster.service.WordMasterService;
@@ -33,7 +34,20 @@ public class WordMasterRemote {
 		return "success";
 	}
 	
-	public String saveWord(WordItem item){
+	public String saveWord(WordItem item, List<String> examples){
+		String code = item.getType().getCode();
+		WordType wordType = service.findWordTypeByCode(code);
+		if(wordType == null){
+			throw new NullPointerException("wordType is null");
+		}
+		item.setType(wordType);
+		if(examples.size()>0){
+			for (String example : examples) {
+				WordExample newExample = new WordExample();
+				newExample.setExample(example);
+				item.addToExamples(newExample);
+			}
+		}
 		service.saveWordItem(item);
 		return "success";
 	}

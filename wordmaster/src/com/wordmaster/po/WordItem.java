@@ -1,6 +1,7 @@
 package com.wordmaster.po;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WordItem {
 
@@ -10,7 +11,7 @@ public class WordItem {
 	private String englishTranslation;
 	private String chineseTranslation;
 	private String note;
-	private List<String> examples;
+	private Set<WordExample> examples = new HashSet<WordExample>();
 
 	public long getId() {
 		return id;
@@ -60,12 +61,17 @@ public class WordItem {
 		this.note = note;
 	}
 
-	public List<String> getExamples() {
+	public Set<WordExample> getExamples() {
 		return examples;
 	}
 
-	public void setExamples(List<String> examples) {
+	public void setExamples(Set<WordExample> examples) {
 		this.examples = examples;
+	}
+
+	public void addToExamples(WordExample example) {
+		this.examples.add(example);
+		example.setWordItem(this);
 	}
 
 }

@@ -101,10 +101,16 @@ $(document).ready(function(){
 				"englishTranslation": $.trim($("#field_enTranslation").val()),
 				"chineseTranslation": $.trim($("#field_cnTranslation").val()),
 				"note": $.trim($("#field_notes").val()),
-				"word": $.trim($("#field_newWord").val())
+				"type": {"code": $("#field_type").val()
+				}
 				
 			};
-			WordMasterRemote.saveWord(wordItem, function(data){
+			var example = $.trim($("#field_example").val());
+			var examples = [];
+			if(example != ""){
+				examples.push(example);
+			}
+			WordMasterRemote.saveWord(wordItem, examples, function(data){
 				if(data != "success"){
 					alert("Failed to save word.");
 				}else{

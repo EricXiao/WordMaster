@@ -11,6 +11,11 @@
 		<property name="englishTranslation" column="english_translation"/>
 		<property name="chineseTranslation" column="chinese_translation"/>
 		<property name="note"/>
+		<many-to-one name="type" class="WordType" cascade="all" column="type_id"/>
+		<set name="examples" cascade="all">
+			<key column="word_item_id"/>
+			<one-to-many class="WordExample"/>
+		</set>
 	</class>
 </hibernate-mapping>
 

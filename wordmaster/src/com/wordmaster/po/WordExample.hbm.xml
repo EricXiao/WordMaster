@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.wordmaster.po">
+	<class name="WordExample" table="wm_word_example">
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="example" column="example"/>
+		<many-to-one name="wordItem" class="WordItem" column="word_item_id" not-null="true"/>
+	</class>
+</hibernate-mapping>
+
